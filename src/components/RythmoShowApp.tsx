@@ -23,7 +23,7 @@ import stageImage from "@/assets/rythmoshow-stage.jpg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { submitBookingServerFn, type BookingFormData } from "@/server/bookings";
+import { submitBookingServerFn, type BookingFormData } from "@/api/bookings";
 
 type Language = "gr" | "en";
 
