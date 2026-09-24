@@ -1,0 +1,77 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Manrope", sans-serif;
+  --font-display: "Cormorant Garamond", serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.14 0.005 70);
+  --foreground: oklch(0.96 0.015 85);
+  --card: oklch(0.18 0.008 70);
+  --card-foreground: oklch(0.96 0.015 85);
+  --popover: oklch(0.18 0.008 70);
+  --popover-foreground: oklch(0.96 0.015 85);
+  --primary: oklch(0.78 0.1 78);
+  --primary-foreground: oklch(0.15 0.012 70);
+  --secondary: oklch(0.23 0.01 70);
+  --secondary-foreground: oklch(0.95 0.015 85);
+  --muted: oklch(0.22 0.008 70);
+  --muted-foreground: oklch(0.7 0.02 80);
+  --accent: oklch(0.28 0.025 75);
+  --accent-foreground: oklch(0.92 0.035 80);
+  --destructive: oklch(0.64 0.2 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.79 0.07 78 / 18%);
+  --input: oklch(0.79 0.07 78 / 24%);
+  --ring: oklch(0.78 0.1 78);
+}
+
+* { border-color: var(--color-border); }
+html { scroll-behavior: smooth; background: var(--color-background); }
+body { margin: 0; background: var(--color-background); color: var(--color-foreground); font-family: var(--font-sans); letter-spacing: 0; }
+button, a, input, textarea, select { letter-spacing: inherit; }
+::selection { background: color-mix(in oklab, var(--primary) 35%, transparent); }
+
+.section-kicker { color: var(--color-primary); font-size: .7rem; letter-spacing: .24em; text-transform: uppercase; }
+.bg-hero-overlay { background: linear-gradient(90deg, oklch(0.10 0.005 70 / 96%) 0%, oklch(0.10 0.005 70 / 72%) 42%, oklch(0.10 0.005 70 / 20%) 78%), linear-gradient(0deg, oklch(0.12 0.006 70 / 75%) 0%, transparent 55%); }
+.bg-media-overlay { background: linear-gradient(0deg, oklch(0.1 0.005 70 / 95%) 0%, oklch(0.1 0.005 70 / 8%) 72%); }
+.hero-glow { background: radial-gradient(circle at 76% 22%, color-mix(in oklab, var(--primary) 18%, transparent), transparent 28%); }
+.booking-glow { background: radial-gradient(circle at 12% 45%, color-mix(in oklab, var(--primary) 8%, transparent), transparent 34%); pointer-events: none; }
+.particle { position: absolute; width: 2px; height: 2px; border-radius: 999px; background: var(--primary); box-shadow: 0 0 10px color-mix(in oklab, var(--primary) 85%, transparent); opacity: 0; animation: shimmer 4.8s ease-in-out infinite; }
+.equalizer-bar { transform-origin: bottom; animation: equalize .72s ease-in-out infinite alternate; }
+.media-range { height: 2px; cursor: pointer; appearance: none; background: color-mix(in oklab, var(--foreground) 25%, transparent); accent-color: var(--primary); }
+.media-range::-webkit-slider-thumb { width: 10px; height: 10px; appearance: none; border-radius: 999px; background: var(--primary); box-shadow: 0 0 12px color-mix(in oklab, var(--primary) 70%, transparent); }
+.scheme-dark { color-scheme: dark; }
+
+@keyframes shimmer { 0%, 100% { opacity: 0; transform: translateY(12px); } 45% { opacity: .75; } 65% { opacity: .3; transform: translateY(-24px); } }
+@keyframes equalize { from { transform: scaleY(.35); opacity: .55; } to { transform: scaleY(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .particle, .equalizer-bar { animation: none; opacity: .5; } }

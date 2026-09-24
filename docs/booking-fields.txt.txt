@@ -1,0 +1,49 @@
+===========================================
+BOOKING FORM FIELDS (GR / EN MAPPING)
+===========================================
+
+Form Title (GR): Αίτημα Κράτησης Event
+Form Title (EN): Request Event Booking
+
+Fields:
+1. full_name
+   - Label (GR): Ονοματεπώνυμο
+   - Label (EN): Full Name
+   - Type: Text Input (Required)
+
+2. email
+   - Label (GR): Email
+   - Label (EN): Email Address
+   - Type: Email Input (Required)
+
+3. phone
+   - Label (GR): Τηλέφωνο Επικοινωνίας
+   - Label (EN): Phone Number
+   - Type: Tel Input (Required)
+
+4. event_date
+   - Label (GR): Ημερομηνία Εκδήλωσης
+   - Label (EN): Event Date
+   - Type: Date Picker (Required)
+
+5. event_type
+   - Label (GR): Είδος Εκδήλωσης
+   - Label (EN): Event Type
+   - Options (GR): Γάμος, Βάπτιση, Private Party / Γενέθλια, Εταιρικό Event, Club / Bar Set
+   - Options (EN): Wedding, Baptism, Private Party / Birthday, Corporate Event, Club / Bar Set
+
+6. location
+   - Label (GR): Τοποθεσία / Περιοχή
+   - Label (EN): Location / Venue
+   - Type: Text Input
+
+7. dj_option
+   - Label (GR): Χρειάζεστε και DJ;
+   - Label (EN): Do you need a DJ service as well?
+   - Options (GR): Όχι (Έχουμε ήδη DJ), Ναι (Θέλουμε συνεργάτη DJ από το rythmoShow)
+   - Options (EN): No (DJ already provided), Yes (Include rythmoShow DJ partner)
+
+8. notes
+   - Label (GR): Σημειώσεις / Ειδικές Απαιτήσεις
+   - Label (EN): Additional Notes / Special Requests
+   - Type: Textarea
