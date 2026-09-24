@@ -33,6 +33,7 @@ type FormErrorState = {
   phone?: string;
   eventDate?: string;
   eventType?: string;
+  location?: string;
 };
 
 type Copy = {
@@ -77,6 +78,7 @@ type Copy = {
     location: string;
     notes: string;
   };
+  locations: string[];
   eventTypes: string[];
   djOptions: {
     yes: string;
@@ -94,6 +96,7 @@ type Copy = {
     phone: string;
     eventDate: string;
     eventType: string;
+    location: string;
   };
   footerLine: string;
   phoneLabel: string;
@@ -104,19 +107,19 @@ const BRAND_PHONE = "0035799903290";
 const BRAND_PHONE_DISPLAY = "+357 99 903290";
 const BRAND_INSTAGRAM = "https://www.instagram.com/rythmoshows?stkn=YXA3Mm8ycWV4eW8z";
 const BRAND_FACEBOOK = "https://www.facebook.com/share/19nghCfM9x/";
-const BRAND_EMAIL = "hello@rythmoshow.gr";
+const BRAND_EMAIL = "percussionshow9@gmail.com";
 
 const copy: Record<Language, Copy> = {
   gr: {
     nav: ["Σχετικά", "Υπηρεσίες", "Experience", "Κράτηση"],
     booking: "Αίτημα Κράτησης",
-    heroKicker: "Live Percussion Duo · Greece, Cyprus & Beyond",
+    heroKicker: "Live Percussion Duo · Διαθέσιμο αποκλειστικά στην Κύπρο",
     heroTitle: "Live Percussion & Party Experience",
-    heroText: "Το rythmoShow είναι ένα εκρηκτικό live music project από 2 μουσικούς στα κρούστα. Δημιουργούμε την απόλυτη party ατμόσφαιρα με ρυθμό, ένταση και ενέργεια σε κάθε εκδήλωση.",
+    heroText: "Το rythmoShow είναι ένα εκρηκτικό live music project από 2 μουσικούς στα κρούστα. Δημιουργούμε την απόλυτη party ατμόσφαιρα με ρυθμό, ένταση και ενέργεια σε κάθε εκδήλωση στην Κύπρο.",
     scroll: "Ανακάλυψε το show",
     aboutKicker: "Δύο μουσικοί. Ένας εκρηκτικός παλμός.",
     aboutTitle: "Η στιγμή που το event γίνεται αξέχαστη εμπειρία.",
-    aboutText: "Το rythmoShow είναι ένα εκρηκτικό live music project που αποτελείται από 2 μουσικούς στα κρούστα (Live Percussion Duo). Δημιουργούμε την απόλυτη ατμόσφαιρα party παίζοντας live μουσική, δίνοντας ρυθμό, ένταση και ενέργεια σε κάθε εκδήλωση (γάμοι, βαπτίσεις, private parties, εταιρικά events).",
+    aboutText: "Το rythmoShow είναι ένα εκρηκτικό live music project που αποτελείται από 2 μουσικούς στα κρούστα (Live Percussion Duo). Δημιουργούμε την απόλυτη ατμόσφαιρα party παίζοντας live μουσική, δίνοντας ρυθμό, ένταση και ενέργεια σε κάθε εκδήλωση στην Κύπρο (γάμοι, βαπτίσεις, private parties, εταιρικά events).",
     statOne: "02",
     statOneLabel: "Μουσικοί στα Κρούστα (Percussion Duo)",
     statTwo: "100%",
@@ -136,24 +139,33 @@ const copy: Record<Language, Copy> = {
     clipLabels: ["Live Wedding Showcase", "Island Sunset Party", "Club / Bar Percussion Set"],
     bookingKicker: "Bring The Rhythm To Your Event",
     bookingTitle: "Αίτημα Κράτησης Event",
-    bookingText: "Συμπληρώστε τη φόρμα ενδιαφέροντος για να ελέγξουμε τη διαθεσιμότητα και να σας στείλουμε προσαρμοσμένη πρόταση.",
+    bookingText: "Συμπληρώστε τη φόρμα ενδιαφέροντος για να ελέγξουμε τη διαθεσιμότητα για την εκδήλωσή σας στην Κύπρο και να σας στείλουμε προσαρμοσμένη πρόταση.",
     labels: {
       fullName: "Ονοματεπώνυμο",
       email: "Email",
       phone: "Τηλέφωνο Επικοινωνίας",
       eventDate: "Ημερομηνία Εκδήλωσης",
       eventType: "Είδος Εκδήλωσης",
-      location: "Τοποθεσία / Περιοχή",
+      location: "Τοποθεσία / Επαρχία (Κύπρος)",
       djOption: "Χρειάζεστε και DJ;",
       notes: "Σημειώσεις / Ειδικές Απαιτήσεις",
     },
     placeholders: {
       fullName: "π.χ. Γιώργος Παπαδόπουλος",
       email: "you@email.com",
-      phone: "+357 99 903290 / +30 69...",
-      location: "π.χ. Αθήνα, Μύκονος, Λευκωσία...",
+      phone: "+357 99 903290",
+      location: "Επιλέξτε επαρχία στην Κύπρο...",
       notes: "Πείτε μας για το πρόγραμμα, τον χώρο ή άλλες λεπτομέρειες...",
     },
+    locations: [
+      "Επιλέξτε επαρχία στην Κύπρο...",
+      "Λευκωσία (Nicosia)",
+      "Λεμεσός (Limassol)",
+      "Λάρνακα (Larnaca)",
+      "Πάφος (Paphos)",
+      "Αμμόχωστος / Αγία Νάπα / Πρωταράς (Famagusta)",
+      "Άλλη Περιοχή στην Κύπρο",
+    ],
     eventTypes: [
       "Επιλέξτε είδος εκδήλωσης...",
       "Γάμος",
@@ -168,7 +180,7 @@ const copy: Record<Language, Copy> = {
     },
     submit: "Αποστολή Αιτήματος",
     submitting: "Αποστολή...",
-    privacy: "Τα στοιχεία σας χρησιμοποιούνται αποκλειστικά για την επικοινωνία σχετικά με το αίτημά σας.",
+    privacy: "Τα στοιχεία σας χρησιμοποιούνται αποκλειστικά για την επικοινωνία σχετικά με το αίτημά σας. Υπηρεσίες διαθέσιμες αποκλειστικά στην Κύπρο.",
     successTitle: "Το αίτημά σας καταχωρήθηκε επιτυχώς!",
     successText: "Ευχαριστούμε! Θα επικοινωνήσουμε άμεσα μαζί σας για τη διαθεσιμότητα και τις λεπτομέρειες.",
     errorGeneric: "Παρουσιάστηκε σφάλμα κατά την αποστολή. Παρακαλούμε δοκιμάστε ξανά ή καλέστε μας.",
@@ -178,21 +190,22 @@ const copy: Record<Language, Copy> = {
       phone: "Συμπληρώστε το τηλέφωνο επικοινωνίας.",
       eventDate: "Επιλέξτε ημερομηνία εκδήλωσης.",
       eventType: "Επιλέξτε είδος εκδήλωσης.",
+      location: "Παρακαλούμε επιλέξτε επαρχία / περιοχή στην Κύπρο.",
     },
     footerLine: "Live percussion duo. High-energy party experience.",
     phoneLabel: "Τηλέφωνο",
-    availability: "Greece · Cyprus · Worldwide",
+    availability: "Διαθέσιμο αποκλειστικά στην Κύπρο",
   },
   en: {
     nav: ["About", "Services", "Experience", "Booking"],
     booking: "Request Booking",
-    heroKicker: "Live Percussion Duo · Greece, Cyprus & Beyond",
+    heroKicker: "Live Percussion Duo · Available exclusively in Cyprus",
     heroTitle: "Live Percussion & Party Experience",
-    heroText: "rythmoShow is an explosive live music project featuring a 2-piece Live Percussion Duo. We create the ultimate party atmosphere, adding rhythm, energy, and excitement to every event.",
+    heroText: "rythmoShow is an explosive live music project featuring a 2-piece Live Percussion Duo. We create the ultimate party atmosphere, adding rhythm, energy, and excitement to every event in Cyprus.",
     scroll: "Discover the show",
     aboutKicker: "Two musicians. One explosive pulse.",
     aboutTitle: "The moment your event becomes an unforgettable experience.",
-    aboutText: "rythmoShow is an explosive live music project featuring a 2-piece Live Percussion Duo. We create the ultimate party atmosphere performing live music, adding rhythm, energy, and excitement to every event (weddings, baptisms, private parties, corporate events).",
+    aboutText: "rythmoShow is an explosive live music project featuring a 2-piece Live Percussion Duo. We create the ultimate party atmosphere performing live music, adding rhythm, energy, and excitement to every event in Cyprus (weddings, baptisms, private parties, corporate events).",
     statOne: "02",
     statOneLabel: "Live Percussionists (Duo)",
     statTwo: "100%",
@@ -212,24 +225,33 @@ const copy: Record<Language, Copy> = {
     clipLabels: ["Live Wedding Showcase", "Island Sunset Party", "Club / Bar Percussion Set"],
     bookingKicker: "Bring The Rhythm To Your Event",
     bookingTitle: "Request Event Booking",
-    bookingText: "Fill out the booking form below to check our availability and receive a tailored proposal.",
+    bookingText: "Fill out the booking form below to check our availability for your event in Cyprus and receive a tailored proposal.",
     labels: {
       fullName: "Full Name",
       email: "Email Address",
       phone: "Phone Number",
       eventDate: "Event Date",
       eventType: "Event Type",
-      location: "Location / Venue",
+      location: "Location / District (Cyprus)",
       djOption: "Do you need a DJ service as well?",
       notes: "Additional Notes / Special Requests",
     },
     placeholders: {
       fullName: "e.g. Alex Smith",
       email: "you@email.com",
-      phone: "+357 99 903290 / +30 69...",
-      location: "e.g. Athens, Mykonos, Cyprus, Santorini...",
+      phone: "+357 99 903290",
+      location: "Select district in Cyprus...",
       notes: "Tell us about your event timeline, musical preferences or special requests...",
     },
+    locations: [
+      "Select district in Cyprus...",
+      "Nicosia (Λευκωσία)",
+      "Limassol (Λεμεσός)",
+      "Larnaca (Λάρνακα)",
+      "Paphos (Πάφος)",
+      "Famagusta / Ayia Napa / Protaras (Αμμόχωστος)",
+      "Other Cyprus Location",
+    ],
     eventTypes: [
       "Select event type...",
       "Wedding",
@@ -244,7 +266,7 @@ const copy: Record<Language, Copy> = {
     },
     submit: "Send Booking Request",
     submitting: "Sending...",
-    privacy: "Your details are strictly used to respond to your booking inquiry.",
+    privacy: "Your details are strictly used to respond to your booking inquiry. Services are available exclusively in Cyprus.",
     successTitle: "Booking request received!",
     successText: "Thank you! We will get in touch shortly with availability and details.",
     errorGeneric: "An error occurred while submitting. Please try again or call us directly.",
@@ -254,10 +276,11 @@ const copy: Record<Language, Copy> = {
       phone: "Please enter your phone number.",
       eventDate: "Please choose an event date.",
       eventType: "Please select an event type.",
+      location: "Please select a district in Cyprus.",
     },
     footerLine: "Live percussion duo. High-energy party experience.",
     phoneLabel: "Phone",
-    availability: "Greece · Cyprus · Worldwide",
+    availability: "Available exclusively in Cyprus",
   },
 };
 
@@ -428,6 +451,7 @@ function BookingForm({ t, language }: { t: Copy; language: Language }) {
     if (!phone) nextErrors.phone = t.errors.phone;
     if (!eventDate) nextErrors.eventDate = t.errors.eventDate;
     if (!eventType) nextErrors.eventType = t.errors.eventType;
+    if (!location) nextErrors.location = t.errors.location;
 
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
@@ -547,8 +571,20 @@ function BookingForm({ t, language }: { t: Copy; language: Language }) {
 
       {/* 6. location */}
       <label>
-        <span className={labelClass}>{t.labels.location}</span>
-        <Input name="location" placeholder={t.placeholders.location} className={fieldClass} />
+        <span className={labelClass}>{t.labels.location} *</span>
+        <select
+          name="location"
+          defaultValue=""
+          required
+          className={`${fieldClass} w-full border-b text-sm text-foreground outline-none ${errors.location ? "border-destructive" : ""}`}
+        >
+          {t.locations.map((loc, index) => (
+            <option key={loc} value={index === 0 ? "" : loc} className="bg-card" disabled={index === 0}>
+              {loc}
+            </option>
+          ))}
+        </select>
+        {errors.location && <p className="mt-1 text-xs text-destructive">{errors.location}</p>}
       </label>
 
       {/* 7. dj_option */}

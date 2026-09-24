@@ -2,6 +2,9 @@
 BOOKING FORM FIELDS (GR / EN MAPPING)
 ===========================================
 
+Primary Contact & Notification Email: percussionshow9@gmail.com
+Coverage: Cyprus Only (Διαθέσιμο αποκλειστικά στην Κύπρο / Available exclusively in Cyprus)
+
 Form Title (GR): Αίτημα Κράτησης Event
 Form Title (EN): Request Event Booking
 
@@ -33,9 +36,11 @@ Fields:
    - Options (EN): Wedding, Baptism, Private Party / Birthday, Corporate Event, Club / Bar Set
 
 6. location
-   - Label (GR): Τοποθεσία / Περιοχή
-   - Label (EN): Location / Venue
-   - Type: Text Input
+   - Label (GR): Τοποθεσία / Επαρχία (Κύπρος)
+   - Label (EN): Location / District (Cyprus)
+   - Type: Select Dropdown (Required, Cyprus Only)
+   - Options (GR): Λευκωσία (Nicosia), Λεμεσός (Limassol), Λάρνακα (Larnaca), Πάφος (Paphos), Αμμόχωστος / Αγία Νάπα / Πρωταράς (Famagusta), Άλλη Περιοχή στην Κύπρο
+   - Options (EN): Nicosia (Λευκωσία), Limassol (Λεμεσός), Larnaca (Λάρνακα), Paphos (Πάφος), Famagusta / Ayia Napa / Protaras (Αμμόχωστος), Other Cyprus Location
 
 7. dj_option
    - Label (GR): Χρειάζεστε και DJ;

@@ -16,6 +16,8 @@ export const bookingInputSchema = z.object({
 
 export type BookingFormData = z.infer<typeof bookingInputSchema>;
 
+export const NOTIFICATION_RECIPIENT_EMAIL = "percussionshow9@gmail.com";
+
 export const submitBookingServerFn = createServerFn({ method: "POST" })
   .validator((data: unknown) => {
     return bookingInputSchema.parse(data);
@@ -23,6 +25,7 @@ export const submitBookingServerFn = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     try {
       const result = await saveBooking(data);
+      console.info(`[Booking Notification] New booking request saved for ${data.fullName} (${data.eventType}, ${data.location || "Cyprus"}). Notification recipient: ${NOTIFICATION_RECIPIENT_EMAIL}`);
       return result;
     } catch (err: any) {
       console.error("Failed to save booking:", err);
