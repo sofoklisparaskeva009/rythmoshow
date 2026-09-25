@@ -315,11 +315,12 @@ const clips = [
 
 function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
-    <a href="#top" className="group inline-flex items-center gap-3" aria-label="rythmoShow home">
-      <span className="relative grid size-10 place-items-center rounded-full border border-primary/50 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-        <span className="absolute inset-1 rounded-full border border-current/40" />
-        <Music2 className="size-4" />
-      </span>
+    <a href="#top" className="group inline-flex items-center gap-2" aria-label="rythmoShow home">
+      <img
+        src="/image/logo1.png"
+        alt="rythmoShow logo"
+        className="h-10 w-auto object-contain"
+      />
       {!compact && (
         <span className="font-display text-xl text-foreground">
           rythmo<span className="text-primary">Show</span>
