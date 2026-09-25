@@ -317,7 +317,7 @@ function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
     <a href="#top" className="group inline-flex items-center gap-2" aria-label="rythmoShow home">
       <img
-        src="/image/logo1.png"
+        src="/image/Logo1.png"
         alt="rythmoShow logo"
         className="h-10 w-auto object-contain"
       />
