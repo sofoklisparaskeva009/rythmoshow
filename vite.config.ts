@@ -12,4 +12,9 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Hard-pin the Vercel preset so Nitro emits .vercel/output/ (Build Output API v3).
+  // This makes createServerFn calls work as Vercel Serverless Functions.
+  // Note: inside a Lovable build, LOVABLE_NITRO_PRESET still wins — this only
+  // affects local `npm run build` and self-hosted CI runs.
+  nitro: { preset: "vercel" },
 });
