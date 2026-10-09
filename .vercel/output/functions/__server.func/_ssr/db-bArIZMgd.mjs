@@ -1,6 +1,6 @@
 import { i as TSS_SERVER_FUNCTION } from "./createServerFn-CIHAFgYl.mjs";
 import { t as Xs } from "../_libs/neondatabase__serverless.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/db-Bm1dglKl.js
+//#region node_modules/.nitro/vite/services/ssr/assets/db-bArIZMgd.js
 var createServerRpc = (serverFnMeta, splitImportFn) => {
 	const url = "/_serverFn/" + serverFnMeta.id;
 	return Object.assign(splitImportFn, {
@@ -127,11 +127,21 @@ async function getBookings() {
 async function updateBookingStatus(id, status) {
 	const dbUrl = getDatabaseUrl();
 	if (!dbUrl) throw new Error("DATABASE_URL is missing.");
-	await Xs(dbUrl)`
-    UPDATE bookings
-    SET status = ${status}
-    WHERE id = ${id};
-  `;
+	await ensureBookingTableExists();
+	const sql = Xs(dbUrl);
+	try {
+		const result = await sql`
+      UPDATE bookings
+      SET status = ${status}
+      WHERE id = ${id}
+      RETURNING id;
+    `;
+		if (!result || result.length === 0) throw new Error(`No booking found with id=${id}`);
+		console.info(`[DB] Updated booking id=${id} status → ${status}`);
+	} catch (err) {
+		console.error(`[DB] updateBookingStatus failed for id=${id}:`, err);
+		throw new Error(err?.message ?? "Database error while updating booking status.");
+	}
 }
 //#endregion
 export { updateBookingStatus as i, getBookings as n, saveBooking as r, createServerRpc as t };

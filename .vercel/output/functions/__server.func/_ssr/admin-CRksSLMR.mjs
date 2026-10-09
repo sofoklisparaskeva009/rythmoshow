@@ -1,10 +1,10 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { c as createServerFn } from "./createServerFn-CIHAFgYl.mjs";
-import { t as createSsrRpc } from "./createSsrRpc-Rt-G13Kd.mjs";
+import { t as createSsrRpc } from "./createSsrRpc-DM41q_sk.mjs";
 import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { i as stringType, n as numberType, r as objectType, t as enumType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/admin-Bsxpranc.js
+//#region node_modules/.nitro/vite/services/ssr/assets/admin-CRksSLMR.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var verifyAdminPasswordFn = createServerFn({ method: "POST" }).validator((data) => {
@@ -150,6 +150,16 @@ function Dashboard({ onLogout }) {
 	const [fetchError, setFetchError] = (0, import_react.useState)("");
 	const [updatingId, setUpdatingId] = (0, import_react.useState)(null);
 	const [openDropdown, setOpenDropdown] = (0, import_react.useState)(null);
+	const [toasts, setToasts] = (0, import_react.useState)([]);
+	const showToast = (0, import_react.useCallback)((message, type) => {
+		const id = Date.now();
+		setToasts((prev) => [...prev, {
+			id,
+			message,
+			type
+		}]);
+		setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 3500);
+	}, []);
 	const loadBookings = (0, import_react.useCallback)(async () => {
 		setLoadingData(true);
 		setFetchError("");
@@ -177,8 +187,11 @@ function Dashboard({ onLogout }) {
 				...b,
 				status
 			} : b));
-		} catch {
-			alert("Failed to update status.");
+			showToast(`Status updated to "${status}"`, "success");
+		} catch (err) {
+			const msg = err?.message ?? "Failed to update status.";
+			console.error("[Admin UI] changeStatus error:", err);
+			showToast(msg, "error");
 		} finally {
 			setUpdatingId(null);
 		}
@@ -201,6 +214,22 @@ function Dashboard({ onLogout }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		style: styles.dashWrapper,
 		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				style: styles.toastContainer,
+				children: toasts.map((t) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					style: {
+						...styles.toast,
+						background: t.type === "success" ? "rgba(34,197,94,0.15)" : "rgba(248,113,113,0.15)",
+						borderColor: t.type === "success" ? "rgba(34,197,94,0.4)" : "rgba(248,113,113,0.4)",
+						color: t.type === "success" ? "#22c55e" : "#f87171"
+					},
+					children: [
+						t.type === "success" ? "✓" : "✕",
+						" ",
+						t.message
+					]
+				}, t.id))
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
 				style: styles.header,
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -817,6 +846,27 @@ var styles = {
 		borderRadius: 10,
 		color: "#f87171",
 		fontSize: 14
+	},
+	toastContainer: {
+		position: "fixed",
+		bottom: 28,
+		right: 28,
+		zIndex: 1e3,
+		display: "flex",
+		flexDirection: "column",
+		gap: 10,
+		pointerEvents: "none"
+	},
+	toast: {
+		padding: "12px 20px",
+		borderRadius: 10,
+		border: "1px solid",
+		fontSize: 14,
+		fontWeight: 600,
+		backdropFilter: "blur(12px)",
+		boxShadow: "0 8px 30px rgba(0,0,0,0.4)",
+		animation: "fadeInUp 0.25s ease",
+		letterSpacing: "0.02em"
 	}
 };
 //#endregion

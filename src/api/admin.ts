@@ -40,6 +40,12 @@ export const updateBookingStatusFn = createServerFn({ method: "POST" })
     }).parse(data);
   })
   .handler(async ({ data }) => {
-    await updateBookingStatus(data.id, data.status as BookingStatus);
-    return { success: true };
+    try {
+      await updateBookingStatus(data.id, data.status as BookingStatus);
+      console.info(`[Admin] Booking id=${data.id} status updated to "${data.status}"`);
+      return { success: true };
+    } catch (err: any) {
+      console.error(`[Admin] updateBookingStatus error for id=${data.id}:`, err);
+      throw new Error(err?.message ?? "Failed to update booking status.");
+    }
   });

@@ -1,7 +1,7 @@
 import { c as createServerFn } from "./createServerFn-CIHAFgYl.mjs";
 import { i as stringType, n as numberType, r as objectType, t as enumType } from "../_libs/zod.mjs";
-import { i as updateBookingStatus, n as getBookings, t as createServerRpc } from "./db-Bm1dglKl.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/admin-fTnTFj7l.js
+import { i as updateBookingStatus, n as getBookings, t as createServerRpc } from "./db-bArIZMgd.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/admin-C_guL4HT.js
 function getAdminPassword() {
 	const pw = process.env["ADMIN_PASSWORD"];
 	if (pw) return pw.trim();
@@ -45,8 +45,14 @@ var updateBookingStatusFn = createServerFn({ method: "POST" }).validator((data) 
 		])
 	}).parse(data);
 }).handler(updateBookingStatusFn_createServerFn_handler, async ({ data }) => {
-	await updateBookingStatus(data.id, data.status);
-	return { success: true };
+	try {
+		await updateBookingStatus(data.id, data.status);
+		console.info(`[Admin] Booking id=${data.id} status updated to "${data.status}"`);
+		return { success: true };
+	} catch (err) {
+		console.error(`[Admin] updateBookingStatus error for id=${data.id}:`, err);
+		throw new Error(err?.message ?? "Failed to update booking status.");
+	}
 });
 //#endregion
 export { getBookingsFn_createServerFn_handler, updateBookingStatusFn_createServerFn_handler, verifyAdminPasswordFn_createServerFn_handler };

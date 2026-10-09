@@ -75,5 +75,6 @@ button, a, input, textarea, select { letter-spacing: inherit; }
 @keyframes shimmer { 0%, 100% { opacity: 0; transform: translateY(12px); } 45% { opacity: .75; } 65% { opacity: .3; transform: translateY(-24px); } }
 @keyframes equalize { from { transform: scaleY(.35); opacity: .55; } to { transform: scaleY(1); opacity: 1; } }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .particle, .equalizer-bar { animation: none; opacity: .5; } }
 

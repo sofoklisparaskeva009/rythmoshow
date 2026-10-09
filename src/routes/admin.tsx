@@ -145,12 +145,21 @@ function LoginScreen({ onSuccess }: { onSuccess: () => void }) {
 // ─────────────────────────────────────────────
 //  Dashboard
 // ─────────────────────────────────────────────
+type Toast = { id: number; message: string; type: "success" | "error" };
+
 function Dashboard({ onLogout }: { onLogout: () => void }) {
   const [bookings, setBookings]             = useState<BookingRecord[]>([]);
   const [loadingData, setLoadingData]       = useState(true);
   const [fetchError, setFetchError]         = useState("");
   const [updatingId, setUpdatingId]         = useState<number | null>(null);
   const [openDropdown, setOpenDropdown]     = useState<number | null>(null);
+  const [toasts, setToasts]                 = useState<Toast[]>([]);
+
+  const showToast = useCallback((message: string, type: "success" | "error") => {
+    const id = Date.now();
+    setToasts((prev) => [...prev, { id, message, type }]);
+    setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 3500);
+  }, []);
 
   // Fetch on mount
   const loadBookings = useCallback(async () => {
@@ -174,11 +183,15 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
     setOpenDropdown(null);
     try {
       await updateBookingStatusFn({ data: { id, status } });
+      // Optimistic local update so UI reflects change instantly
       setBookings((prev) =>
         prev.map((b) => (b.id === id ? { ...b, status } : b))
       );
-    } catch {
-      alert("Failed to update status.");
+      showToast(`Status updated to "${status}"`, "success");
+    } catch (err: any) {
+      const msg = err?.message ?? "Failed to update status.";
+      console.error("[Admin UI] changeStatus error:", err);
+      showToast(msg, "error");
     } finally {
       setUpdatingId(null);
     }
@@ -199,6 +212,26 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
 
   return (
     <div style={styles.dashWrapper}>
+      {/* Toast notifications */}
+      <div style={styles.toastContainer}>
+        {toasts.map((t) => (
+          <div
+            key={t.id}
+            style={{
+              ...styles.toast,
+              background: t.type === "success"
+                ? "rgba(34,197,94,0.15)"
+                : "rgba(248,113,113,0.15)",
+              borderColor: t.type === "success"
+                ? "rgba(34,197,94,0.4)"
+                : "rgba(248,113,113,0.4)",
+              color: t.type === "success" ? "#22c55e" : "#f87171",
+            }}
+          >
+            {t.type === "success" ? "✓" : "✕"} {t.message}
+          </div>
+        ))}
+      </div>
       {/* Header */}
       <header style={styles.header}>
         <div style={styles.headerLeft}>
@@ -765,5 +798,28 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius: 10,
     color: "#f87171",
     fontSize: 14,
+  },
+
+  // Toast notifications
+  toastContainer: {
+    position: "fixed" as const,
+    bottom: 28,
+    right: 28,
+    zIndex: 1000,
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: 10,
+    pointerEvents: "none",
+  },
+  toast: {
+    padding: "12px 20px",
+    borderRadius: 10,
+    border: "1px solid",
+    fontSize: 14,
+    fontWeight: 600,
+    backdropFilter: "blur(12px)",
+    boxShadow: "0 8px 30px rgba(0,0,0,0.4)",
+    animation: "fadeInUp 0.25s ease",
+    letterSpacing: "0.02em",
   },
 };

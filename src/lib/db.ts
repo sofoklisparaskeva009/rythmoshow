@@ -144,10 +144,23 @@ export async function updateBookingStatus(id: number, status: BookingStatus): Pr
     throw new Error("DATABASE_URL is missing.");
   }
 
+  // Ensure the status column exists before trying to update it.
+  await ensureBookingTableExists();
+
   const sql = neon(dbUrl);
-  await sql`
-    UPDATE bookings
-    SET status = ${status}
-    WHERE id = ${id};
-  `;
+  try {
+    const result = await sql`
+      UPDATE bookings
+      SET status = ${status}
+      WHERE id = ${id}
+      RETURNING id;
+    `;
+    if (!result || result.length === 0) {
+      throw new Error(`No booking found with id=${id}`);
+    }
+    console.info(`[DB] Updated booking id=${id} status → ${status}`);
+  } catch (err: any) {
+    console.error(`[DB] updateBookingStatus failed for id=${id}:`, err);
+    throw new Error(err?.message ?? "Database error while updating booking status.");
+  }
 }
