@@ -1,10 +1,10 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { c as createServerFn } from "./createServerFn-CIHAFgYl.mjs";
-import { i as stringType, n as numberType, r as objectType, t as enumType } from "../_libs/zod.mjs";
 import { t as createSsrRpc } from "./createSsrRpc-DM41q_sk.mjs";
 import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/admin-o_ykHWeu.js
+import { i as stringType, n as numberType, r as objectType, t as enumType } from "../_libs/zod.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/admin-BS2K09jT.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var verifyAdminPasswordFn = createServerFn({ method: "POST" }).validator((data) => {
@@ -149,7 +149,6 @@ function Dashboard({ onLogout }) {
 	const [loadingData, setLoadingData] = (0, import_react.useState)(true);
 	const [fetchError, setFetchError] = (0, import_react.useState)("");
 	const [updatingId, setUpdatingId] = (0, import_react.useState)(null);
-	const [openDropdown, setOpenDropdown] = (0, import_react.useState)(null);
 	const [toasts, setToasts] = (0, import_react.useState)([]);
 	const showToast = (0, import_react.useCallback)((message, type) => {
 		const id = Date.now();
@@ -177,7 +176,6 @@ function Dashboard({ onLogout }) {
 	}, [loadBookings]);
 	const changeStatus = async (id, status) => {
 		setUpdatingId(id);
-		setOpenDropdown(null);
 		try {
 			await updateBookingStatusFn({ data: {
 				id,
@@ -433,49 +431,39 @@ function Dashboard({ onLogout }) {
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("td", {
 									style: styles.td,
-									children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										style: { position: "relative" },
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-											id: `status-btn-${b.id}`,
-											onClick: () => setOpenDropdown(openDropdown === b.id ? null : b.id),
-											disabled: updatingId === b.id,
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("select", {
+										id: `status-select-${b.id}`,
+										value: b.status ?? "Pending",
+										onChange: (e) => changeStatus(b.id, e.target.value),
+										disabled: updatingId === b.id,
+										style: {
+											background: STATUS_COLORS[b.status]?.bg ?? "rgba(148,163,184,0.15)",
+											color: STATUS_COLORS[b.status]?.text ?? "#94a3b8",
+											border: `1px solid ${STATUS_COLORS[b.status]?.border ?? "rgba(148,163,184,0.4)"}`,
+											borderRadius: 20,
+											padding: "5px 12px",
+											fontSize: 12,
+											fontWeight: 700,
+											letterSpacing: "0.04em",
+											cursor: updatingId === b.id ? "not-allowed" : "pointer",
+											opacity: updatingId === b.id ? .6 : 1,
+											outline: "none",
+											appearance: "auto"
+										},
+										children: ALL_STATUSES.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+											value: s,
 											style: {
-												...styles.statusBadge,
-												background: STATUS_COLORS[b.status]?.bg ?? "rgba(148,163,184,0.15)",
-												color: STATUS_COLORS[b.status]?.text ?? "#94a3b8",
-												borderColor: STATUS_COLORS[b.status]?.border ?? "rgba(148,163,184,0.4)",
-												cursor: updatingId === b.id ? "not-allowed" : "pointer",
-												opacity: updatingId === b.id ? .6 : 1
+												background: "#0f0d1a",
+												color: "#f1f5f9"
 											},
-											children: [updatingId === b.id ? "…" : b.status ?? "Pending", " ▾"]
-										}), openDropdown === b.id && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-											style: styles.dropdown,
-											children: ALL_STATUSES.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-												id: `status-option-${b.id}-${s}`,
-												onClick: () => changeStatus(b.id, s),
-												style: {
-													...styles.dropdownItem,
-													color: STATUS_COLORS[s].text,
-													fontWeight: b.status === s ? 700 : 400,
-													background: b.status === s ? STATUS_COLORS[s].bg : "transparent"
-												},
-												children: s
-											}, s))
-										})]
+											children: s
+										}, s))
 									})
 								})
 							]
 						}, b.id)) })]
 					})
 				})]
-			}),
-			openDropdown !== null && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				onClick: () => setOpenDropdown(null),
-				style: {
-					position: "fixed",
-					inset: 0,
-					zIndex: 9998
-				}
 			})
 		]
 	});

@@ -4,7 +4,7 @@ import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].
 import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { t as Toaster } from "../_libs/sonner.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-BxroF6ma.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-CW8-5v34.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var Toaster$1 = ({ ...props }) => {
@@ -210,7 +210,7 @@ var Route$1 = createFileRoute("/")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-var $$splitComponentImporter = () => import("./admin-o_ykHWeu.mjs");
+var $$splitComponentImporter = () => import("./admin-BS2K09jT.mjs");
 var Route = createFileRoute("/admin")({
 	head: () => ({ meta: [{ title: "Admin Dashboard — rythmoShow" }, {
 		name: "robots",

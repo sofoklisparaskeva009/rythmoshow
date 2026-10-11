@@ -1,24 +1,24 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-DaI4AuKj.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-BIe7KaY6.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "C:/Users/sofok/Downloads/rythmoshow-gold-glow/src/routes/__root.tsx",
 		children: ["/", "/admin"],
-		preloads: ["/assets/index-YM3uQz4P.js"],
+		preloads: ["/assets/index-Cw_F6UoZ.js"],
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-YM3uQz4P.js"
+			src: "/assets/index-Cw_F6UoZ.js"
 		} }]
 	},
 	"/": {
 		filePath: "C:/Users/sofok/Downloads/rythmoshow-gold-glow/src/routes/index.tsx",
 		children: void 0,
-		preloads: ["/assets/routes-QWjLeuRZ.js", "/assets/createServerFn-dgftn73G.js"]
+		preloads: ["/assets/routes-D59bvEHY.js", "/assets/createServerFn-BYe6-7LY.js"]
 	},
 	"/admin": {
 		filePath: "C:/Users/sofok/Downloads/rythmoshow-gold-glow/src/routes/admin.tsx",
 		children: void 0,
-		preloads: ["/assets/admin-tty1qct7.js", "/assets/createServerFn-dgftn73G.js"]
+		preloads: ["/assets/admin-Ddi01Ppu.js", "/assets/createServerFn-BYe6-7LY.js"]
 	}
 } });
 //#endregion

@@ -152,7 +152,6 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
   const [loadingData, setLoadingData]       = useState(true);
   const [fetchError, setFetchError]         = useState("");
   const [updatingId, setUpdatingId]         = useState<number | null>(null);
-  const [openDropdown, setOpenDropdown]     = useState<number | null>(null);
   const [toasts, setToasts]                 = useState<Toast[]>([]);
 
   const showToast = useCallback((message: string, type: "success" | "error") => {
@@ -180,7 +179,6 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
 
   const changeStatus = async (id: number, status: BookingStatus) => {
     setUpdatingId(id);
-    setOpenDropdown(null);
     try {
       await updateBookingStatusFn({ data: { id, status } });
       // Optimistic local update so UI reflects change instantly
@@ -354,47 +352,36 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
                       </div>
                     </td>
                     <td style={styles.td}>
-                      <div style={{ position: "relative" }}>
-                        <button
-                          id={`status-btn-${b.id}`}
-                          onClick={() =>
-                            setOpenDropdown(openDropdown === b.id ? null : b.id)
-                          }
-                          disabled={updatingId === b.id}
-                          style={{
-                            ...styles.statusBadge,
-                            background: STATUS_COLORS[b.status as BookingStatus]?.bg ?? "rgba(148,163,184,0.15)",
-                            color: STATUS_COLORS[b.status as BookingStatus]?.text ?? "#94a3b8",
-                            borderColor: STATUS_COLORS[b.status as BookingStatus]?.border ?? "rgba(148,163,184,0.4)",
-                            cursor: updatingId === b.id ? "not-allowed" : "pointer",
-                            opacity: updatingId === b.id ? 0.6 : 1,
-                          }}
-                        >
-                          {updatingId === b.id ? "…" : (b.status ?? "Pending")} ▾
-                        </button>
-
-                        {openDropdown === b.id && (
-                          <div style={styles.dropdown}>
-                            {ALL_STATUSES.map((s) => (
-                              <button
-                                key={s}
-                                id={`status-option-${b.id}-${s}`}
-                                onClick={() => changeStatus(b.id, s)}
-                                style={{
-                                  ...styles.dropdownItem,
-                                  color: STATUS_COLORS[s].text,
-                                  fontWeight: b.status === s ? 700 : 400,
-                                  background: b.status === s
-                                    ? STATUS_COLORS[s].bg
-                                    : "transparent",
-                                }}
-                              >
-                                {s}
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
+                      <select
+                        id={`status-select-${b.id}`}
+                        value={b.status ?? "Pending"}
+                        onChange={(e) => changeStatus(b.id, e.target.value as BookingStatus)}
+                        disabled={updatingId === b.id}
+                        style={{
+                          background: STATUS_COLORS[b.status as BookingStatus]?.bg ?? "rgba(148,163,184,0.15)",
+                          color: STATUS_COLORS[b.status as BookingStatus]?.text ?? "#94a3b8",
+                          border: `1px solid ${STATUS_COLORS[b.status as BookingStatus]?.border ?? "rgba(148,163,184,0.4)"}`,
+                          borderRadius: 20,
+                          padding: "5px 12px",
+                          fontSize: 12,
+                          fontWeight: 700,
+                          letterSpacing: "0.04em",
+                          cursor: updatingId === b.id ? "not-allowed" : "pointer",
+                          opacity: updatingId === b.id ? 0.6 : 1,
+                          outline: "none",
+                          appearance: "auto",
+                        }}
+                      >
+                        {ALL_STATUSES.map((s) => (
+                          <option
+                            key={s}
+                            value={s}
+                            style={{ background: "#0f0d1a", color: "#f1f5f9" }}
+                          >
+                            {s}
+                          </option>
+                        ))}
+                      </select>
                     </td>
                   </tr>
                 ))}
@@ -404,17 +391,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
         )}
       </div>
 
-      {/* Click-away for dropdown */}
-      {openDropdown !== null && (
-        <div
-          onClick={() => setOpenDropdown(null)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 9998,
-          }}
-        />
-      )}
+
     </div>
   );
 }
