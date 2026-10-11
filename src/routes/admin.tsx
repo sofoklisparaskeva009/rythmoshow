@@ -411,7 +411,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           style={{
             position: "fixed",
             inset: 0,
-            zIndex: 9,
+            zIndex: 9998,
           }}
         />
       )}
@@ -675,11 +675,12 @@ const styles: Record<string, React.CSSProperties> = {
     border: "1px solid rgba(212,175,55,0.12)",
     borderRadius: 16,
     backdropFilter: "blur(20px)",
-    overflow: "hidden",
+    // overflow must NOT be "hidden" — it clips absolutely-positioned dropdowns
   },
   tableScroll: {
     overflowX: "auto",
     width: "100%",
+    borderRadius: 16,
   },
   table: {
     width: "100%",
@@ -741,7 +742,7 @@ const styles: Record<string, React.CSSProperties> = {
     border: "1px solid rgba(212,175,55,0.25)",
     borderRadius: 10,
     padding: "6px",
-    zIndex: 20,
+    zIndex: 9999,
     minWidth: 140,
     boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
   },

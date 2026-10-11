@@ -1,10 +1,10 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { c as createServerFn } from "./createServerFn-CIHAFgYl.mjs";
+import { i as stringType, n as numberType, r as objectType, t as enumType } from "../_libs/zod.mjs";
 import { t as createSsrRpc } from "./createSsrRpc-DM41q_sk.mjs";
 import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { i as stringType, n as numberType, r as objectType, t as enumType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/admin-CRksSLMR.js
+//#region node_modules/.nitro/vite/services/ssr/assets/admin-o_ykHWeu.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var verifyAdminPasswordFn = createServerFn({ method: "POST" }).validator((data) => {
@@ -474,7 +474,7 @@ function Dashboard({ onLogout }) {
 				style: {
 					position: "fixed",
 					inset: 0,
-					zIndex: 9
+					zIndex: 9998
 				}
 			})
 		]
@@ -724,12 +724,12 @@ var styles = {
 		background: "rgba(15,13,26,0.8)",
 		border: "1px solid rgba(212,175,55,0.12)",
 		borderRadius: 16,
-		backdropFilter: "blur(20px)",
-		overflow: "hidden"
+		backdropFilter: "blur(20px)"
 	},
 	tableScroll: {
 		overflowX: "auto",
-		width: "100%"
+		width: "100%",
+		borderRadius: 16
 	},
 	table: {
 		width: "100%",
@@ -791,7 +791,7 @@ var styles = {
 		border: "1px solid rgba(212,175,55,0.25)",
 		borderRadius: 10,
 		padding: "6px",
-		zIndex: 20,
+		zIndex: 9999,
 		minWidth: 140,
 		boxShadow: "0 12px 40px rgba(0,0,0,0.6)"
 	},
