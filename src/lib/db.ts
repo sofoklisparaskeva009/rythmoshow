@@ -138,6 +138,38 @@ export async function getBookings(): Promise<BookingRecord[]> {
   return rows as BookingRecord[];
 }
 
+export async function getBookingById(id: number): Promise<BookingRecord | null> {
+  const dbUrl = getDatabaseUrl();
+  if (!dbUrl) {
+    throw new Error("DATABASE_URL is missing.");
+  }
+
+  await ensureBookingTableExists();
+  const sql = neon(dbUrl);
+
+  const rows = await sql`
+    SELECT
+      id,
+      full_name   AS "fullName",
+      email,
+      phone,
+      event_date  AS "eventDate",
+      event_type  AS "eventType",
+      location,
+      dj_option   AS "djOption",
+      notes,
+      language,
+      status,
+      created_at  AS "createdAt"
+    FROM bookings
+    WHERE id = ${id}
+    LIMIT 1;
+  `;
+
+  if (!rows || rows.length === 0) return null;
+  return rows[0] as BookingRecord;
+}
+
 export async function updateBookingStatus(id: number, status: BookingStatus): Promise<void> {
   const dbUrl = getDatabaseUrl();
   if (!dbUrl) {

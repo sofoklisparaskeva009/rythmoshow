@@ -1,7 +1,7 @@
 import { c as createServerFn } from "./createServerFn-CIHAFgYl.mjs";
 import { i as stringType, n as numberType, r as objectType, t as enumType } from "../_libs/zod.mjs";
-import { i as updateBookingStatus, n as getBookings, t as createServerRpc } from "./db-bArIZMgd.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/admin-C_guL4HT.js
+import { a as sendBookingConfirmationEmail, n as getBookingById, r as getBookings, s as updateBookingStatus, t as createServerRpc } from "./email-sSeCloXM.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/admin-DsPoiJfW.js
 function getAdminPassword() {
 	const pw = process.env["ADMIN_PASSWORD"];
 	if (pw) return pw.trim();
@@ -48,6 +48,16 @@ var updateBookingStatusFn = createServerFn({ method: "POST" }).validator((data) 
 	try {
 		await updateBookingStatus(data.id, data.status);
 		console.info(`[Admin] Booking id=${data.id} status updated to "${data.status}"`);
+		if (data.status === "Confirmed") try {
+			const booking = await getBookingById(data.id);
+			if (booking && booking.email) {
+				const emailResult = await sendBookingConfirmationEmail(booking);
+				if (emailResult.success) console.info(`[Admin] Bilingual confirmation email sent to ${booking.email} (id=${emailResult.messageId}) for booking id=${data.id}`);
+				else console.warn(`[Admin] Bilingual confirmation email not sent for booking id=${data.id}: ${emailResult.error}`);
+			} else console.warn(`[Admin] Could not find booking or customer email for id=${data.id}; confirmation email skipped.`);
+		} catch (emailErr) {
+			console.error(`[Admin] Exception while sending confirmation email for booking id=${data.id}:`, emailErr);
+		}
 		return { success: true };
 	} catch (err) {
 		console.error(`[Admin] updateBookingStatus error for id=${data.id}:`, err);

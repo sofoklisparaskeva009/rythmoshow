@@ -1,7 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { getBookings, updateBookingStatus } from "@/lib/db";
+import { getBookings, getBookingById, updateBookingStatus } from "@/lib/db";
 import type { BookingStatus } from "@/lib/db";
+import { sendBookingConfirmationEmail } from "@/lib/email";
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 function getAdminPassword(): string {
@@ -43,9 +44,40 @@ export const updateBookingStatusFn = createServerFn({ method: "POST" })
     try {
       await updateBookingStatus(data.id, data.status as BookingStatus);
       console.info(`[Admin] Booking id=${data.id} status updated to "${data.status}"`);
+
+      // Trigger automatic bilingual email when status is 'Confirmed'
+      if (data.status === "Confirmed") {
+        try {
+          const booking = await getBookingById(data.id);
+          if (booking && booking.email) {
+            const emailResult = await sendBookingConfirmationEmail(booking);
+            if (emailResult.success) {
+              console.info(
+                `[Admin] Bilingual confirmation email sent to ${booking.email} (id=${emailResult.messageId}) for booking id=${data.id}`,
+              );
+            } else {
+              console.warn(
+                `[Admin] Bilingual confirmation email not sent for booking id=${data.id}: ${emailResult.error}`,
+              );
+            }
+          } else {
+            console.warn(
+              `[Admin] Could not find booking or customer email for id=${data.id}; confirmation email skipped.`,
+            );
+          }
+        } catch (emailErr: any) {
+          // Wrapped in try/catch so email errors never break or revert the DB status update
+          console.error(
+            `[Admin] Exception while sending confirmation email for booking id=${data.id}:`,
+            emailErr,
+          );
+        }
+      }
+
       return { success: true };
     } catch (err: any) {
       console.error(`[Admin] updateBookingStatus error for id=${data.id}:`, err);
       throw new Error(err?.message ?? "Failed to update booking status.");
     }
   });
+
