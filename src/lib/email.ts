@@ -2,7 +2,9 @@ import { Resend } from "resend";
 import type { BookingInput, BookingRecord } from "./db";
 
 export const NOTIFICATION_RECIPIENT = "percussionshow9@gmail.com";
-export const SENDER = "rythmoShow Bookings <onboarding@resend.dev>";
+export const SENDER =
+  (process.env["RESEND_FROM"] || "").trim() ||
+  "rythmoShow <bookings@rythmoshow.com>";
 export const CONFIRMATION_EMAIL_SUBJECT =
   "Η κράτησή σας στο rythmoShow επιβεβαιώθηκε! / Your rythmoShow booking is confirmed! 🎉";
 
@@ -121,6 +123,7 @@ export async function sendBookingNotification(
       from: SENDER,
       to: [NOTIFICATION_RECIPIENT],
       subject,
+      ...(data.email?.includes("@") ? { replyTo: data.email.trim() } : {}),
       html: buildBookingEmailHtml(data),
     });
 
@@ -326,6 +329,7 @@ export async function sendBookingConfirmationEmail(
     const response = await resend.emails.send({
       from: SENDER,
       to: [recipientEmail],
+      replyTo: "bookings@rythmoshow.com",
       subject: CONFIRMATION_EMAIL_SUBJECT,
       html: buildConfirmationEmailHtml(data),
       text: buildConfirmationEmailText(data),

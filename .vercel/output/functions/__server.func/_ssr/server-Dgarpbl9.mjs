@@ -4,7 +4,7 @@ import { A as rootRouteId, C as getStylesheetHref, D as isRedirect, E as execute
 import { n as createMemoryHistory } from "../_libs/tanstack__history.mjs";
 import { a as defaultSerovalPlugins, c as makeSerovalPlugin, d as toCrossJSONStream, i as mergeHeaders, l as fromJSON, n as getNormalizedURL, o as createRawStreamRPCPlugin, r as getOrigin, s as createSerializationAdapter, t as attachRouterServerSsrUtils, u as toCrossJSONAsync } from "../_libs/@tanstack/router-core+[...].mjs";
 import { a as X_TSS_RAW_RESPONSE, d as getStartOptions, f as runWithStartContext, i as TSS_SERVER_FUNCTION, l as flattenMiddlewares, n as TSS_CONTENT_TYPE_FRAMED_VERSIONED, o as X_TSS_SERIALIZED, p as safeObjectMerge, r as TSS_FORMDATA_CONTEXT, s as createNullProtoObject, t as FrameType, u as getStartContext } from "./createServerFn-CIHAFgYl.mjs";
-import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-Bv_mDaa6.mjs";
+import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-DBBBF_7q.mjs";
 import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].mjs";
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { t as createCsrfMiddleware } from "./createCsrfMiddleware-B2To0gPJ.mjs";
@@ -1027,7 +1027,7 @@ var getBaseManifest = getProdBaseManifest;
 var createEarlyHintsForRequest = createEarlyHintsCollector;
 async function loadEntries() {
 	const [routerEntry, startEntry, pluginAdapters] = await Promise.all([
-		import("./router-6qij4sp6.mjs"),
+		import("./router-BXJWTq_V.mjs"),
 		import("./start-RKGGYzjZ.mjs"),
 		import("./empty-plugin-adapters-D9UWiqvJ.mjs")
 	]);

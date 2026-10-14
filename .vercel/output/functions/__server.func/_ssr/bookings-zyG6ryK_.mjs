@@ -1,7 +1,7 @@
 import { c as createServerFn } from "./createServerFn-CIHAFgYl.mjs";
+import { i as saveBooking, o as sendBookingNotification, t as createServerRpc } from "./email-VN-GhNlB.mjs";
 import { i as stringType, r as objectType, t as enumType } from "../_libs/zod.mjs";
-import { i as saveBooking, o as sendBookingNotification, t as createServerRpc } from "./email-sSeCloXM.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/bookings-BTtfVix7.js
+//#region node_modules/.nitro/vite/services/ssr/assets/bookings-zyG6ryK_.js
 var bookingInputSchema = objectType({
 	fullName: stringType().trim().min(1, "Name is required"),
 	email: stringType().trim().email("Invalid email address"),

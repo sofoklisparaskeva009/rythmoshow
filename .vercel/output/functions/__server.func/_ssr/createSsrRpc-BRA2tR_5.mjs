@@ -1,6 +1,6 @@
 import { i as TSS_SERVER_FUNCTION } from "./createServerFn-CIHAFgYl.mjs";
-import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-Bv_mDaa6.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/createSsrRpc-rqXxbeRS.js
+import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-DBBBF_7q.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/createSsrRpc-BRA2tR_5.js
 var createSsrRpc = (functionId) => {
 	const url = "/_serverFn/" + functionId;
 	const serverFnMeta = { id: functionId };

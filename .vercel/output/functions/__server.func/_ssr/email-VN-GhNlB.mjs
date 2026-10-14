@@ -1,7 +1,7 @@
 import { i as TSS_SERVER_FUNCTION } from "./createServerFn-CIHAFgYl.mjs";
 import { t as Xs } from "../_libs/neondatabase__serverless.mjs";
 import { t as Resend } from "../_libs/resend+standardwebhooks.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/email-sSeCloXM.js
+//#region node_modules/.nitro/vite/services/ssr/assets/email-VN-GhNlB.js
 var createServerRpc = (serverFnMeta, splitImportFn) => {
 	const url = "/_serverFn/" + serverFnMeta.id;
 	return Object.assign(splitImportFn, {
@@ -170,7 +170,7 @@ async function updateBookingStatus(id, status) {
 	}
 }
 var NOTIFICATION_RECIPIENT = "percussionshow9@gmail.com";
-var SENDER = "rythmoShow Bookings <onboarding@resend.dev>";
+var SENDER = (process.env["RESEND_FROM"] || "").trim() || "rythmoShow <bookings@rythmoshow.com>";
 var CONFIRMATION_EMAIL_SUBJECT = "Η κράτησή σας στο rythmoShow επιβεβαιώθηκε! / Your rythmoShow booking is confirmed! 🎉";
 function getResendApiKey() {
 	const fromProcess = process.env["RESEND_API_KEY"];
@@ -299,6 +299,7 @@ async function sendBookingNotification(data) {
 			from: SENDER,
 			to: [NOTIFICATION_RECIPIENT],
 			subject,
+			...data.email?.includes("@") ? { replyTo: data.email.trim() } : {},
 			html: buildBookingEmailHtml(data)
 		});
 		if (response.error) {
@@ -499,6 +500,7 @@ async function sendBookingConfirmationEmail(data) {
 		const response = await resend.emails.send({
 			from: SENDER,
 			to: [recipientEmail],
+			replyTo: "bookings@rythmoshow.com",
 			subject: CONFIRMATION_EMAIL_SUBJECT,
 			html: buildConfirmationEmailHtml(data),
 			text: buildConfirmationEmailText(data)
